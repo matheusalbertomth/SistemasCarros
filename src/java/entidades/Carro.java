@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Carro {
     
+    private Integer IdDono;
     private Integer id;
     private String modelo;
     private String fabricante;
@@ -71,6 +72,14 @@ public class Carro {
             return false;
         }
         return true;
+    }
+
+    public Integer getIdDono() {
+        return IdDono;
+    }
+
+    public void setIdDono(Integer IdDono) {
+        this.IdDono = IdDono;
     }
 
 }

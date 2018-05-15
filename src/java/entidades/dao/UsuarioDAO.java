@@ -11,8 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuarioDAO implements CrudDAO<Usuario>{
+
+    private Usuario user;
 
     @Override
     public void salvar(Usuario entidade) throws ErroSistema {
@@ -20,15 +24,16 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
             Connection conexao = FabricaConexao.getConexao();
             PreparedStatement ps;
             if(entidade.getId() == null){
-                ps = conexao.prepareStatement("INSERT INTO usuario (login,senha) VALUES (?,?)");
+                ps = conexao.prepareStatement("INSERT INTO Usuarios (nome, login, senha) VALUES (?, ?,?)");
             } else {
-                ps = conexao.prepareStatement("update usuario set login=?, senha=? where id=?");
+                ps = conexao.prepareStatement("update Usuarios set nome=?, login=?, senha=? where id=?");
                 ps.setInt(3, entidade.getId());
             }
-            ps.setString(1, entidade.getLogin());
-            ps.setString(2, entidade.getSenha());
+            ps.setString(1, entidade.getNome());
+            ps.setString(2, entidade.getLogin());
+            ps.setString(3, entidade.getSenha());
             ps.execute();
-//            FabricaConexao.fecharConexao();
+            FabricaConexao.fecharConexao();
         } catch (SQLException ex) {
             throw new ErroSistema("Erro ao tentar salvar!", ex);
         }
@@ -66,6 +71,43 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
         } catch (SQLException ex) {
             throw new ErroSistema("Erro ao buscar os carros!",ex);
         }
+    }
+
+    @Override
+    public boolean autenticar(Usuario entidade) throws ErroSistema {
+        Usuario usuario = null;
+        String login = entidade.getLogin();
+        String senha = entidade.getSenha();
+        try {
+            Connection conexao = FabricaConexao.getConexao();
+            PreparedStatement ps  = conexao.prepareStatement("SELECT login, senha from Usuarios WHERE id = ?");
+            ResultSet resultSet = ps.executeQuery();
+            while(resultSet.next()){
+                usuario = new Usuario();
+                usuario.setLogin(resultSet.getString("login"));
+                usuario.setSenha(resultSet.getString("senha"));
+            }
+            ps.execute();
+            if (usuario != null) {
+                if (login.equals(usuario.getLogin())) {
+                    if (senha.equals(usuario.getSenha())) {
+                        this.user = usuario;
+                        return true;
+                        //aqui tem que enviar o user, mas para onde?
+                    } else {
+                        throw new Exception("Senha Incorreta");
+                    }
+                } else {
+                    throw new Exception("Login Incorreto");
+                }
+            }
+            return false;
+        } catch (SQLException ex) {
+            throw new ErroSistema("Erro ao autenticar (BD)!", ex);
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
 }

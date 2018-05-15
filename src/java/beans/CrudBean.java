@@ -59,6 +59,38 @@ public abstract class CrudBean<E, D extends CrudDAO> {
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
+    public void autentica(){
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        if(isAuth() == false){
+//           mudarParaAuth();
+//           return;
+//        }
+//        try {
+//            entidades = getDao().();
+//            if(entidades == null || entidades.size() < 1){
+//                adicionarMensagem("Não temos nada cadastrado!", FacesMessage.SEVERITY_WARN);
+//            }
+//        } catch (ErroSistema ex) {
+//            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+//            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+//        }
+    }
+    
+//    public void troca(){
+////        if(isTroca() == false){
+////           mudarParaBusca();
+////           return;
+////        }
+//        try {
+//            entidades = getDao().buscar();
+//            if(entidades == null || entidades.size() < 1){
+//                adicionarMensagem("Não temos nada cadastrado!", FacesMessage.SEVERITY_WARN);
+//            }
+//        } catch (ErroSistema ex) {
+//            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+//            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+//        }
+//    }
     
     public void adicionarMensagem(String mensagem, FacesMessage.Severity tipoErro){
         FacesMessage fm = new FacesMessage(tipoErro, mensagem, null);
@@ -96,6 +128,15 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     public boolean isBusca(){
         return "buscar".equals(estadoTela);
     }
+    private boolean isAuth() {
+        return "autenticar".equals(estadoTela);
+    }
+    
+    
+    
+    public void mudarParaAuth(){
+        estadoTela = "autenticar";
+    }
     public void mudarParaInseri(){
         estadoTela = "inserir";
     }
@@ -105,5 +146,5 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     public void mudarParaBusca(){
         estadoTela = "buscar";
     }
-    
+ 
 }

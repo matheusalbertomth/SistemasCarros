@@ -16,6 +16,7 @@ import java.util.List;
  * @author Danilo Souza Almeida
  */
 public class CarroDAO implements CrudDAO<Carro>{
+    UsuarioDAO userDAO;
     
     @Override
     public void salvar(Carro carro) throws ErroSistema{
@@ -23,15 +24,16 @@ public class CarroDAO implements CrudDAO<Carro>{
             Connection conexao = FabricaConexao.getConexao();
             PreparedStatement ps;
             if(carro.getId() == null){
-                ps = conexao.prepareStatement("INSERT INTO `carro` (`modelo`,`fabricante`,`cor`,`ano`) VALUES (?,?,?,?)");
+                ps = conexao.prepareStatement("INSERT INTO `Carros` (IdDono, `modelo`,`fabricante`,`cor`,`ano`) VALUES (?, ?,?,?,?)");
             } else {
-                ps = conexao.prepareStatement("update carro set modelo=?, fabricante=?, cor=?, ano=? where id=?");
-                ps.setInt(5, carro.getId());
+                ps = conexao.prepareStatement("update Carros set IdDono=?, modelo=?, fabricante=?, cor=?, ano=? where id=?");
+                ps.setInt(6, carro.getId());
             }
-            ps.setString(1, carro.getModelo());
-            ps.setString(2, carro.getFabricante());
-            ps.setString(3, carro.getCor());
-            ps.setDate(4, new Date(carro.getAno().getTime()));
+            ps.setInt(1, carro.getIdDono());
+            ps.setString(2, carro.getModelo());
+            ps.setString(3, carro.getFabricante());
+            ps.setString(4, carro.getCor());
+            ps.setDate(5, new Date(carro.getAno().getTime()));
             ps.execute();
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {
@@ -73,5 +75,10 @@ public class CarroDAO implements CrudDAO<Carro>{
         } catch (SQLException ex) {
             throw new ErroSistema("Erro ao buscar os carros!",ex);
         }
+    }
+
+    @Override
+    public boolean autenticar(Carro entidade) throws ErroSistema {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
