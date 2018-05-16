@@ -60,7 +60,11 @@ public abstract class CrudBean<E, D extends CrudDAO> {
         }
     }
     public void autentica(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(isBusca() == false){
+           mudarParaBusca();
+           return;
+        }
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //        if(isAuth() == false){
 //           mudarParaAuth();
 //           return;
