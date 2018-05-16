@@ -1,13 +1,13 @@
 package entidades;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private Integer id;
-    private String login;
-    private String senha;
-
+    private String nome, login, senha;
+    
     public Integer getId() {
         return id;
     }
@@ -52,6 +52,14 @@ public class Usuario {
             return false;
         }
         return true;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
     

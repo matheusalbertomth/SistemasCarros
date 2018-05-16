@@ -13,6 +13,7 @@
     <cc:implementation>
         <p:toolbar>
             <p:toolbarGroup>
+                <p:commandButton value="Login" icon="ui-icon-user" action="#{cc.attrs.crudBean.login()}" update="@form"></p:commandButton>
                 <p:commandButton value="Novo" icon="ui-icon-document" action="#{cc.attrs.crudBean.novo()}" update="@form"></p:commandButton>
                 <p:commandButton value="Salvar" icon="ui-icon-disk" action="#{cc.attrs.crudBean.salvar()}" disabled="#{cc.attrs.crudBean.busca == true}" update="@form"></p:commandButton>
                 <p:commandButton value="Buscar" icon="ui-icon-search" action="#{cc.attrs.crudBean.buscar()}" update="@form"></p:commandButton>

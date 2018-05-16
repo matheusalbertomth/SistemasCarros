@@ -13,6 +13,8 @@
         <p:fieldset legend="Gerenciar Usuário">
             <sc:toolbarCrud crudBean="#{usuarioBean}"></sc:toolbarCrud>
             <p:panelGrid columns="2" rendered="#{usuarioBean.busca == false}">
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <p:inputText value="#{usuarioBean.entidade.nome}"></p:inputText>
                 <h:outputLabel value="Login"></h:outputLabel>
                 <p:inputText value="#{usuarioBean.entidade.login}"></p:inputText>
                 <h:outputLabel value="Senha"></h:outputLabel>
@@ -22,6 +24,9 @@
                 <p:column>
                     <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{usuarioBean.deletar(u)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Nome">
+                    #{u.nome}
                 </p:column>
                 <p:column headerText="Login">
                     #{u.login}
