@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Danilo Souza Almeida
+ * @author vapstor
  */
 public class CarroDAO implements CrudDAO<Carro>{
     UsuarioDAO userDAO;

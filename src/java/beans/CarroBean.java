@@ -1,6 +1,5 @@
 package beans;
 
-import conexao.FabricaConexao;
 import conexao.SessionUtils;
 import entidades.dao.CarroDAO;
 import entidades.Carro;
@@ -52,12 +51,13 @@ public class CarroBean extends CrudBean<Carro, CarroDAO> implements Serializable
         currentUser = (Usuario) session.getAttribute("usuario");
         Carro c = new Carro();
         c.setIdDono(currentUser.getId());
+        c.setNomeDono(currentUser.getNome());
         return c;
     }
     
     @Override
     public Carro criarNovaEntidadeTroca() {
-         HttpSession session = SessionUtils.getSession();
+        HttpSession session = SessionUtils.getSession();
         currentUser = (Usuario) session.getAttribute("usuario");
         Carro c = new Carro();
         c.setIdDono(currentUser.getId());

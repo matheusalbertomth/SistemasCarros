@@ -57,7 +57,7 @@
             </p:dataTable>
             
             <!--Busca Carros Troca-->
-            <p:dataTable value="#{trocaBean.listaCarrosTroca}" var="carro" rendered="#{trocaBean.troca == true}">
+            <p:dataTable value="#{trocaBean.listaCarrosTroca}" var="carro" rendered="#{trocaBean.troca == true and carroBean.inseri == false}">
                 <p:column>
                     <p:commandButton value="Trocar" action="#{trocaBean.trocar(carro)}" update="@form"></p:commandButton>
                 </p:column>
