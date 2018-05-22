@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <managed-bean>
+        <description>Login Bean</description>
+        <managed-bean-name>LoginBean</managed-bean-name>
+        <managed-bean-class>beans.LoginBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>Troca Bean</description>
+        <managed-bean-name>TrocaBean</managed-bean-name>
+        <managed-bean-class>beans.TrocaBean</managed-bean-class>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
+    <navigation-rule>
+        <description>Navigation from the hello page.</description>
+        <from-view-id>/index.xhtml</from-view-id>
+<!--        <navigation-case>
+            <from-outcome>false</from-outcome>
+            <to-view-id>/gerenciar-carro.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>-->
+        
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>admin</from-outcome>
+			<to-view-id>/gerenciar-carro.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+        
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<!--<from-outcome>admin</from-outcome>-->
+			<to-view-id>/gerenciar-usuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+        
+        <navigation-rule>
+		<from-view-id>/gerenciar-carro.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+        
+        <navigation-rule>
+		<from-view-id>/gerenciar-usuario.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+        
+        <navigation-rule>
+		<from-view-id>/trocar-carro.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+        
+        <navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+        
+    </navigation-rule>
+    
+</faces-config>

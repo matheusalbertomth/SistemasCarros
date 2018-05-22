@@ -8,9 +8,18 @@
             <file>file:/home/danilo/NetBeansProjects/sistema-carros/web/gerenciar-carro.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/Users/Matheus/Documents/NetBeansProjects/sistema-carros/web/gerenciar-carro.xhtml</file>
-            <file>file:/C:/Users/Matheus/Documents/NetBeansProjects/sistema-carros/web/index.xhtml</file>
-            <file>file:/C:/Users/Matheus/Documents/NetBeansProjects/sistema-carros/web/template.xhtml</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/beans/CarroBean.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/entidades/dao/CarroDAO.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/beans/CrudBean.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/entidades/dao/UsuarioDAO.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/exception/ErroSistema.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/beans/TrocaBean.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/web/template.xhtml</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/beans/UsuarioBean.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/src/java/entidades/dao/CrudDAO.java</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/web/gerenciar-carro.xhtml</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/web/resources/sccomp/toolbarCrud.xhtml</file>
+            <file>file:/home/vapstor/NetBeansProjects/SistemasCarros/web/resources/sccomp/toolbarCrudUser.xhtml</file>
         </group>
     </open-files>
 </project-private>

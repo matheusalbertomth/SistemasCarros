@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:p="http://primefaces.org/ui"
@@ -10,11 +11,15 @@
 
     <h:form>
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
-        <p:fieldset legend="Objetos">
-            <sc:toolbarCrud crudBean="#{carroBean}">
-                
+        <p:fieldset legend="Gerenciar Carros">
+            <p>Seja bem vindo, #{LoginBean.login}</p>
+            <sc:toolbarCrud carroBean="#{carroBean}" trocaBean="#{trocaBean}">
+
             </sc:toolbarCrud>
+            
+            <!--//Edita-->
             <p:panelGrid columns="2" rendered="#{carroBean.busca == false}">
+
                 <h:outputLabel value="Modelo"></h:outputLabel>
                 <p:inputText value="#{carroBean.entidade.modelo}"></p:inputText>
 
@@ -27,10 +32,37 @@
                 <h:outputLabel value="Ano"></h:outputLabel>
                 <p:calendar value="#{carroBean.entidade.ano}" ></p:calendar>
             </p:panelGrid>
+
+            <!--Busca (Meus Carros)-->
             <p:dataTable value="#{carroBean.entidades}" var="carro" rendered="#{carroBean.busca == true}">
                 <p:column>
                     <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{carroBean.deletar(carro)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Trocar" action="#{trocaBean.buscar(carro)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Modelo" sortBy="#{carro.modelo}">
+                    <h:outputText value="#{carro.modelo}"></h:outputText>
+                </p:column>
+                <p:column headerText="Fabricante" sortBy="#{carro.fabricante}">
+                    <h:outputText value="#{carro.fabricante}"></h:outputText>
+                </p:column>
+                <p:column headerText="Cor" sortBy="#{carro.cor}">
+                    <h:outputText value="#{carro.cor}"></h:outputText>
+                </p:column>
+                <p:column headerText="Ano" sortBy="#{carro.ano}">
+                    <h:outputText value="#{carro.ano}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+            
+            <!--Busca Carros Troca-->
+            <p:dataTable value="#{trocaBean.listaCarrosTroca}" var="carro" rendered="#{trocaBean.troca == true}">
+                <p:column>
+                    <p:commandButton value="Trocar" action="#{trocaBean.trocar(carro)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Dono" sortBy="#{carro.nomeDono}">
+                    <h:outputText value="#{carro.nomeDono}"></h:outputText>
                 </p:column>
                 <p:column headerText="Modelo" sortBy="#{carro.modelo}">
                     <h:outputText value="#{carro.modelo}"></h:outputText>

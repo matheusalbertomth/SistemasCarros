@@ -18,6 +18,7 @@
             30
         </session-timeout>
     </session-config>
+    
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>

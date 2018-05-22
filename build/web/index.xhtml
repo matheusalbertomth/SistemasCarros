@@ -5,38 +5,26 @@
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="template.xhtml"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp">
-    
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h1>Bem vindo</h1>
     <h:form>
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
-        <p:fieldset legend="Gerenciar Usuário">
-            <sc:toolbarCrud crudBean="#{usuarioBean}"></sc:toolbarCrud>
-            <p:panelGrid columns="2" rendered="#{usuarioBean.busca == false}">
-                <h:outputLabel value="Nome"></h:outputLabel>
-                <p:inputText value="#{usuarioBean.entidade.nome}"></p:inputText>
+        <p:fieldset legend="Login">
+            <!--<sc:toolbarLogin crudBean="#{usuarioBean}"></sc:toolbarLogin>-->
+            <!--and usuarioBean.autentica == false-->
+            <p:panelGrid columns="2" rendered="true">
                 <h:outputLabel value="Login"></h:outputLabel>
-                <p:inputText value="#{usuarioBean.entidade.login}"></p:inputText>
+                <p:inputText value="#{LoginBean.login}"></p:inputText>
                 <h:outputLabel value="Senha"></h:outputLabel>
-                <p:password value="#{usuarioBean.entidade.senha}"></p:password>
+                <p:password value="#{LoginBean.password}"></p:password>
+                <h:commandButton action="#{LoginBean.validateUsernamePassword}"
+			value="Login"></h:commandButton>
             </p:panelGrid>
-            <p:dataTable value="#{usuarioBean.entidades}" var="u" rendered="#{usuarioBean.busca == true}">
-                <p:column>
-                    <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{usuarioBean.deletar(u)}" update="@form"></p:commandButton>
-                </p:column>
-                <p:column headerText="Nome">
-                    #{u.nome}
-                </p:column>
-                <p:column headerText="Login">
-                    #{u.login}
-                </p:column>
-                <p:column headerText="Senha">
-                    #{u.senha}
-                </p:column>
-            </p:dataTable>
+
         </p:fieldset>
     </h:form>
-    
+
 </ui:decorate>
 
