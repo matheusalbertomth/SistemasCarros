@@ -9,5 +9,6 @@ public interface CrudDAO<E> {//E representa minha entidade
     public void deletar(E entidade) throws ErroSistema;
     public List<E> buscar() throws ErroSistema;
     public List<E> trocar() throws ErroSistema;
+//    public void home() throws ErroSistema;
     
 }

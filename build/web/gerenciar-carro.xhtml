@@ -16,10 +16,8 @@
             <sc:toolbarCrud carroBean="#{carroBean}" trocaBean="#{trocaBean}">
 
             </sc:toolbarCrud>
-            
             <!--//Edita-->
             <p:panelGrid columns="2" rendered="#{carroBean.busca == false}">
-
                 <h:outputLabel value="Modelo"></h:outputLabel>
                 <p:inputText value="#{carroBean.entidade.modelo}"></p:inputText>
 
@@ -34,11 +32,11 @@
             </p:panelGrid>
 
             <!--Busca (Meus Carros)-->
-            <p:dataTable value="#{carroBean.entidades}" var="carro" rendered="#{carroBean.busca == true}">
+            <p:dataTable value="#{carroBean.entidades}" var="carro" rendered="#{carroBean.busca == true and trocaBean.troca == false}">
                 <p:column>
                     <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{carroBean.deletar(carro)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Trocar" action="#{trocaBean.buscar(carro)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Trocar" action="#{trocaBean.buscar(carro)}" disabled="#{trocaBean.carroSelecionado != null}" update="@form"></p:commandButton>
                 </p:column>
                 <p:column headerText="Modelo" sortBy="#{carro.modelo}">
                     <h:outputText value="#{carro.modelo}"></h:outputText>
@@ -59,7 +57,7 @@
             <!--Busca Carros Troca-->
             <p:dataTable value="#{trocaBean.listaCarrosTroca}" var="carro" rendered="#{trocaBean.troca == true and carroBean.inseri == false}">
                 <p:column>
-                    <p:commandButton value="Trocar" action="#{trocaBean.trocar(carro)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Trocar" action="#{trocaBean.trocar(carro)}" disabled="#{trocaBean.carroParaTroca == null}" update="@form"></p:commandButton>
                 </p:column>
                 <p:column headerText="Dono" sortBy="#{carro.nomeDono}">
                     <h:outputText value="#{carro.nomeDono}"></h:outputText>

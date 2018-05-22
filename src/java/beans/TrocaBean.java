@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 @ManagedBean
 @SessionScoped
-public class TrocaBean extends CrudBean<Carro, CarroDAO> implements Serializable {
+public class TrocaBean extends CarroBean implements Serializable {
 
     private CarroDAO carroDAO;
     private Carro carroSelecionado, carroParaTroca;
@@ -40,13 +40,30 @@ public class TrocaBean extends CrudBean<Carro, CarroDAO> implements Serializable
         return c;
     }
     
-    public void buscar(Carro carroPraTrocar){
+     public void listaCarros(){
+        this.estadoTela = "trocar";
         if(!isTroca()) {
             mudarParaTroca();
             return;
         }
         try {
-            setCarroParaTroca(carroPraTrocar);
+            setListaCarrosTroca(getDao().trocar());
+            if(getListaCarrosTroca() == null || getListaCarrosTroca().size() < 1){
+                adicionarMensagem("Não temos carro para troca!", FacesMessage.SEVERITY_WARN);
+            }
+        } catch (ErroSistema ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+//            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+    
+    public void buscar(Carro carroPraTrocar){
+        setCarroParaTroca(carroPraTrocar);
+        if(!isTroca()) {
+            mudarParaTroca();
+            return;
+        }
+        try {
             setListaCarrosTroca(getDao().trocar());
             if(getListaCarrosTroca() == null || getListaCarrosTroca().size() < 1){
                 adicionarMensagem("Não temos carro para troca!", FacesMessage.SEVERITY_WARN);
@@ -58,14 +75,20 @@ public class TrocaBean extends CrudBean<Carro, CarroDAO> implements Serializable
     }
     
     public void trocar(Carro carroSelecionado) {
+        if(!isTroca()) {
+            mudarParaTroca();
+            return;
+        }
         int idDonoCarro;
         try {
-            getDao().efetuaTroca(carroSelecionado, carroParaTroca);
             setCarroSelecionado(carroSelecionado);
+            getDao().efetuaTroca(getCarroSelecionado(), carroParaTroca);
             idDonoCarro = carroParaTroca.getIdDono();
             carroParaTroca.setIdDono(carroSelecionado.getIdDono());
             carroSelecionado.setIdDono(idDonoCarro);
             adicionarMensagem("Troca efetuada com sucesso!", FacesMessage.SEVERITY_INFO);
+            setCarroSelecionado(null);
+            setCarroParaTroca(null);
             mudarParaBusca();
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,6 +99,33 @@ public class TrocaBean extends CrudBean<Carro, CarroDAO> implements Serializable
     @Override
     public Carro criarNovaEntidadeTroca() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //Metodos para controle da tela
+    @Override
+    public boolean isInseri(){
+        return "inserir".equals(estadoTela);
+    }
+    @Override
+    public boolean isEdita(){
+        return "editar".equals(estadoTela);
+    }
+    @Override
+    public boolean isBusca(){
+        return "buscar".equals(estadoTela);
+    }
+    
+    @Override
+    public void mudarParaInseri(){
+        estadoTela = "inserir";
+    }
+    @Override
+    public void mudarParaEdita(){
+        estadoTela = "editar";
+    }
+    @Override
+    public void mudarParaBusca(){
+        estadoTela = "buscar";
     }
 
     public boolean isTroca(){

@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+@ManagedBean
 public abstract class CrudBean<E, D extends CrudDAO> {
 
     public String estadoTela = "buscar"; //Inserir, Editar, Buscar, Trocar
@@ -18,11 +20,10 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     public List<E> entidadesTroca;
     
     public void novo(){
-//        if(!isBusca() && !isTroca()){
-            entidade =  criarNovaEntidade();
-    //        entidadeParaTroca =  criarNovaentidadeParaTroca();
+        if(!isInseri()){
             mudarParaInseri();
-//        }
+            entidade =  criarNovaEntidade();
+        }
     }
 
     public void salvar(){
@@ -35,6 +36,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+        mudarParaBusca();
     }
     
     public void editar(E entidade){
@@ -42,7 +44,6 @@ public abstract class CrudBean<E, D extends CrudDAO> {
             this.entidade = entidade;
             mudarParaEdita();
         }
-        
     }
     
     public void deletar(E entidade){
@@ -57,10 +58,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     }
     
     public void buscar(){
-        if(!isBusca()){
-           mudarParaBusca();
-           return;
-        }
+        mudarParaBusca();
         try {
             entidades = getDao().buscar();
             if(entidades == null || entidades.size() < 1){
@@ -72,11 +70,6 @@ public abstract class CrudBean<E, D extends CrudDAO> {
         }
     }
     
-//    entidadesTroca = (List<E>) getCarrosTrocas();
-//            if(entidadesTroca == null || entidadesTroca.size() < 1){
-//                adicionarMensagem("Não temos nada cadastrado!", FacesMessage.SEVERITY_WARN);
-//            }
-    
     public void adicionarMensagem(String mensagem, FacesMessage.Severity tipoErro){
         FacesMessage fm = new FacesMessage(tipoErro, mensagem, null);
         FacesContext.getCurrentInstance().addMessage(null, fm);
@@ -85,7 +78,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     //getters e setters
     public E getEntidade() {
         return entidade;
-    }
+    }   
 
     public void setEntidade(E entidade) {
         this.entidade = entidade;
@@ -123,16 +116,25 @@ public abstract class CrudBean<E, D extends CrudDAO> {
         return "buscar".equals(estadoTela);
     }
     
+    private boolean isHome() {
+        return "home".equals(estadoTela);
+    }
+
+    private void mudarParaHome() {
+        estadoTela = "home";
+    }
+    
     public void mudarParaInseri(){
         estadoTela = "inserir";
     }
+    
     public void mudarParaEdita(){
         estadoTela = "editar";
     }
+    
     public void mudarParaBusca(){
         estadoTela = "buscar";
     }
-    
 
     public E getEntidadeParaTroca() {
         return entidadeParaTroca;
@@ -141,4 +143,6 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     public void setEntidadeParaTroca(E entidadeParaTroca) {
         this.entidadeParaTroca = entidadeParaTroca;
     }
+
+    
 }

@@ -19,6 +19,7 @@ public class CarroBean extends CrudBean<Carro, CarroDAO> implements Serializable
 
     private CarroDAO carroDAO;
     private Usuario currentUser;
+    private Carro carroParaTroca;
     
     @Override
     public CarroDAO getDao() {
@@ -30,7 +31,7 @@ public class CarroBean extends CrudBean<Carro, CarroDAO> implements Serializable
     
     @Override
     public void buscar(){
-       if(!isBusca()){
+        if(!isBusca()){
            mudarParaBusca();
            return;
         }
@@ -41,8 +42,9 @@ public class CarroBean extends CrudBean<Carro, CarroDAO> implements Serializable
             }
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
-//            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+       
     }
     
     @Override
@@ -64,4 +66,15 @@ public class CarroBean extends CrudBean<Carro, CarroDAO> implements Serializable
         c.setNomeDono(currentUser.getNome());
         return c;
     }
+    
+    public Carro getCarroParaTroca() {
+        return carroParaTroca;
+    }
+
+    public void setCarroParaTroca(Carro carroParaTroca) {
+        this.carroParaTroca = carroParaTroca;
+    }
+
+    
+    
 }

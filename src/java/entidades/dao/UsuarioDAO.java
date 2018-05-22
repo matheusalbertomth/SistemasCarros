@@ -1,6 +1,5 @@
 package entidades.dao;
 
-import entidades.Carro;
 import entidades.Usuario;
 import conexao.FabricaConexao;
 import exception.ErroSistema;

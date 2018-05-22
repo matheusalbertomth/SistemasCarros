@@ -141,4 +141,14 @@ public class CarroDAO implements CrudDAO<Carro>{
             throw new ErroSistema("Erro ao efetuar a troca!",ex);
         }
     }
+
+//    @Override
+//    public List<Carro> inicio() throws ErroSistema {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public void home() throws ErroSistema {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

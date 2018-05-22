@@ -3,9 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
-      
       >
-    
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -13,14 +11,15 @@
         <cc:attribute name="trocaBean" required="true" shortDescription="Uma classe qualquer que extenda o crudBean" ></cc:attribute>
     </cc:interface>
 
-    <!-- IMPLEMENTATION -->
+    <!-- IMPLEMENTATION 
+    -->
     <cc:implementation>
         <p:toolbar>
             <p:toolbarGroup>
-                <p:commandButton value="Novo" icon="ui-icon-document" action="#{cc.attrs.carroBean.novo()}" update="@form"></p:commandButton>
-                <p:commandButton value="Salvar" icon="ui-icon-disk" action="#{cc.attrs.carroBean.salvar()}" disabled="#{cc.attrs.carroBean.busca == true}" update="@form"></p:commandButton>
+                <p:commandButton value="Novo" icon="ui-icon-document" action="#{cc.attrs.carroBean.novo()}" disabled="" update="@form"></p:commandButton>
+                <p:commandButton value="Salvar" icon="ui-icon-disk" action="#{cc.attrs.carroBean.salvar()}" disabled="#{cc.attrs.carroBean.busca == true or cc.attrs.trocaBean.troca == true}" update="@form"></p:commandButton>
                 <p:commandButton value="Meus Carros" icon="ui-icon-search" action="#{cc.attrs.carroBean.buscar()}" update="@form"></p:commandButton>
-                <p:commandButton value="Carros para Troca" icon="ui-icon-refresh" action="#{cc.attrs.trocaBean.buscar()}" disabled="#{cc.attrs.trocaBean.troca == false or cc.attrs.carroBean.busca == true}" update="@form"></p:commandButton>
+                <p:commandButton value="Carros para Troca" icon="ui-icon-refresh" action="#{cc.attrs.trocaBean.listaCarros()}" update="@form"></p:commandButton>
             </p:toolbarGroup>
             
         </p:toolbar>
